@@ -2,6 +2,7 @@ package form3
 
 import (
 	"context"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -188,6 +189,9 @@ func testClient(path string, statusCode int, responseBody string) (*Client, *htt
 		SetScheme(u.Scheme),
 		SetHost(u.Host),
 	)
+
+	client.errorLog.SetOutput(ioutil.Discard)
+	client.infoLog.SetOutput(ioutil.Discard)
 
 	return client, srv
 }
